@@ -26,7 +26,13 @@
 ;; and do something different if you are interactive.
 
 (define opts
-  (list (args:make-option (t target) (optional: "TARGET") "target window or pane [default .+]")))
+  (list (args:make-option (t target) (optional: "TARGET") "target window or pane [default .+]")
+        (args:make-option (h help) #:none "display this text"
+            (newline)
+            (print "Usage: [pipe source] | " (car (argv)) " [options]")
+            (newline)
+            (print (args:usage opts))
+            (exit 1))))
 
 (let* ((arguments (args:parse (command-line-arguments) opts))
        (t-val (alist-ref 't arguments)))
